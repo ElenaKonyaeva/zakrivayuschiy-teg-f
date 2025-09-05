@@ -268,8 +268,6 @@ main {
 }
 
 .save_to_floppy span {
-  grid-row: 1;
-  grid-column: 1;
   width: 100%;
   grid-column: 2;
   grid-row: 1;
@@ -438,11 +436,6 @@ main {
     display: grid;
     max-width: 341px;
     max-height: 191px;
-  }
-
-  .save_to_floppy {
-    display: grid;
-    min-width: 341px;
   }
 
   .gradient-section {
