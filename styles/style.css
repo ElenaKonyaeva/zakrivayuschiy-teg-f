@@ -13,23 +13,27 @@
 .page {
   display: flex;
   flex-wrap: wrap;
-  min-inline-size: 320px;
+  width: 100%;
+  min-width: 375px;
+  max-width: 1440px;
   min-block-size: 100dvb;
   font-family: var(--font-family), sans-serif;
   flex-direction: column;
-  align-content: center;
-  justify-content: center;
+  align-items: center;
   font-variation-settings: "wght" var(--main-wght);
-  padding: 100px var(--side-margin);
+  margin: 0 auto;
   position: relative;
+  box-sizing: border-box;
   background: #fff;
+  padding: 100px 0;
 }
 
 .gradient-section {
   background-image: var(--main-gradient);
   background-size: cover;
   background-repeat: repeat;
-  min-height: clamp(667px, 100vh, 960px);
+  height: 100%;
+  min-height: 960px;
   background-attachment: fixed;
   position: absolute;
   top: 0;
@@ -40,18 +44,28 @@
 
 .header {
   width: 100%;
+  display: flex;
+  justify-content: center;
   font-family: var(--accent-font), sans-serif;
 }
 
 .block {
-  display: inline-block;
+  box-sizing: border-box;
   min-width: var(--block-width);
-  min-height: 327px;
+  min-height: clamp(20.1rem, 19.5359rem + 3.849vw, 23rem);
   background-color: #fff;
   border: 2px solid #000;
-  align-content: center;
-  justify-items: center;
-  margin-bottom: 100px;
+  text-align: center;
+  margin-bottom: 95px;
+  padding: 130px 20px;
+}
+
+main {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 50px;
 }
 
 .main-title {
@@ -60,6 +74,7 @@
   text-transform: uppercase;
   font-weight: 400;
   padding-bottom: 20px;
+  align-items: center;
 }
 .second-title {
   font-size: clamp(0.875rem, 0.6769rem + 0.8451vw, 1.4375rem);
@@ -70,34 +85,64 @@
 }
 
 .card {
+  box-sizing: border-box;
+  display: inline-block;
   background-color: #fff;
   border: 2px solid var(--accent-color);
   width: 100%;
-  max-inline-size: 700px;
+  min-inline-size: 375px;
+  max-width: 700px;
   position: relative;
-  margin-bottom: 52px;
 }
 
 .title {
   font-family: var(--font-family), sans-serif;
   font-size: 18px;
   font-variation-settings: "wght" var(--wght);
-  padding: 5px 12px 0;
+  padding: 5px 11px 3px;
 }
 
 .image-card {
   position: relative;
-  display: inline-block;
-  inline-size: clamp(23.438rem, 16.3299rem + 30.3279vw, 43.625rem);
-  block-size: clamp(23.438rem, 16.2859rem + 30.5157vw, 43.75rem);
+  width: 100%;
 }
 
 .image-card img {
+  display: block;
   width: 100%;
-  height: 100%;
+  max-height: clamp(23.388rem, 16.0359rem + 30.5157vw, 43.98rem);
   background-size: cover;
   background-position: center;
-  aspect-ratio: 1 / 1;
+  margin: 0;
+  padding: 0;
+}
+
+.lots_of_filters {
+  filter: sepia(0.5) contrast(1.2) brightness(0.9) saturate(0.8);
+}
+
+.invert {
+  filter: invert(25%);
+}
+
+.sepia {
+  filter: sepia(50%);
+}
+
+.grayscale {
+  filter: grayscale(30%);
+}
+
+.saturate {
+  filter: saturate(0.8);
+}
+
+.contrast {
+  filter: contrast(1.1);
+}
+
+.brightness {
+  filter: brightness(0.95);
 }
 
 .html-label {
@@ -120,7 +165,7 @@
 }
 
 .paragraph {
-  padding: 20px 27px 5px;
+  padding: 23px 26px 3px;
   font-weight: 410;
   font-size: 18px;
   line-height: 117%;
@@ -138,13 +183,8 @@
   font-family: var(--accent-family), sans-serif;
   outline: 2px solid var(--accent-color), #000;
   padding: 9px 17px;
-  margin: 20px 28px 25px 0;
+  margin: 20px 26px 25px 0;
   position: relative;
-}
-
-.button_text {
-  font-family: var(--accent-font), sans-serif;
-  font-size: 14px;
 }
 
 .card__icon-button {
@@ -162,9 +202,11 @@
 }
 
 .save_floppy_button {
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 }
 
 .save_button {
@@ -175,10 +217,12 @@
   min-height: 55px;
   justify-content: center;
   align-items: center;
-  
+  margin: 0;
+  gap: 8px;
 }
 .button_text {
-  padding-left: 8px;
+  font-family: var(--accent-font), sans-serif;
+  font-size: 14px;
   line-height: 90%;
   color: var(--color);
   mix-blend-mode: difference;
@@ -208,17 +252,21 @@
   align-self: center;
 }
 
-
-.button-effects .icon_floppy_disk {
-  color: white;
+.icon_floppy_disk {
+  fill: currentColor;
   position: relative;
   z-index: 2;
   width: 22px;
   height: 21px;
   object-fit: cover;
   mix-blend-mode: difference;
-
+  color: var(--color);
 }
+
+.button-style {
+  margin-left: 8px;
+}
+
 .save_to_floppy span {
   grid-row: 1;
   grid-column: 1;
@@ -240,8 +288,6 @@
 .save_to_floppy:not([open]) {
   display: none;
 }
-
-
 
 .ok_button {
   grid-row: 2;
@@ -290,7 +336,6 @@
 
 .button-effects:hover::before {
   transform: scaleX(1);
- 
 }
 
 .sparks {
@@ -361,18 +406,26 @@
   fill: var(--decoration-color);
 }
 
+.card__icon-button:focus {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 1px;
+}
+
 @media (width <= 376px) {
   .save_button {
-    min-block-size: 84px;
-    min-inline-size: 306px;
+    min-width: 306px;
+    max-height: 84px;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 17px 8px;
+    padding: 15px 8px 13px;
+    position: relative;
+    margin: 0 auto;
+    gap: 6px;
   }
 
   .button_text {
-    padding-top: 8px;
+    padding-top: 5px;
   }
 
   button .icon_floppy_disk {
@@ -390,5 +443,26 @@
   .save_to_floppy {
     display: grid;
     min-width: 341px;
+  }
+
+  .gradient-section {
+    min-height: 667px;
+  }
+
+  .block {
+    padding: 120px 16px;
+    margin-bottom: 100px;
+  }
+  .paragraph {
+    padding: 27px 26px 0;
+  }
+
+  .card__like-button {
+    margin: 24px 26px 23px 0;
+  }
+  .card__icon-button {
+    position: absolute;
+    bottom: 20px;
+    right: 163px;
   }
 }
