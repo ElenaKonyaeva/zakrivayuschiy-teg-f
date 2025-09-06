@@ -11,7 +11,7 @@
 */
 
 .page {
-  display: flex;
+  display: grid;
   flex-wrap: wrap;
   width: 100%;
   min-width: 375px;
@@ -26,20 +26,7 @@
   box-sizing: border-box;
   background: #fff;
   padding: 100px 0;
-}
-
-.gradient-section {
   background-image: var(--main-gradient);
-  background-size: cover;
-  background-repeat: repeat;
-  height: 100%;
-  min-height: 960px;
-  background-attachment: fixed;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: -1;
 }
 
 .header {
@@ -51,8 +38,10 @@
 
 .block {
   box-sizing: border-box;
-  min-width: var(--block-width);
-  min-height: clamp(20.1rem, 19.5359rem + 3.849vw, 23rem);
+  display: inline-block;
+  width: 100%;
+  min-inline-size: 375px;
+  max-inline-size: 700px;
   background-color: #fff;
   border: 2px solid #000;
   text-align: center;
@@ -65,7 +54,7 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 50px;
+  gap: 51px;
 }
 
 .main-title {
@@ -76,7 +65,7 @@ main {
   padding-bottom: 20px;
   align-items: center;
 }
-.second-title {
+.additional-title {
   font-size: clamp(0.875rem, 0.6769rem + 0.8451vw, 1.4375rem);
   font-family: var(--accent-family);
   font-weight: 400;
@@ -111,10 +100,11 @@ main {
   display: block;
   width: 100%;
   max-height: clamp(23.388rem, 16.0359rem + 30.5157vw, 43.98rem);
-  background-size: cover;
-  background-position: center;
+  object-fit: cover;
+  object-position: center;
   margin: 0;
   padding: 0;
+  aspect-ratio: 1 / 1;
 }
 
 .lots_of_filters {
@@ -154,52 +144,67 @@ main {
   text-transform: uppercase;
   opacity: 0.5;
   mix-blend-mode: hard-light;
-  -webkit-text-stroke: 1px var(--color);
   text-shadow: 1px var(--color);
 }
 
-@supports (text-stroke: 1px var(--color)) {
+@supports (text-stroke: 1px var(--color)) or (-webkit-text-stroke: 1px var(--color)) {
   .html-label {
     text-stroke: 1px var(--color);
+    -webkit-text-stroke: 1px var(--color);
+    text-shadow: none;
   }
 }
 
 .paragraph {
-  padding: 23px 26px 3px;
+  padding: 28px 26px 0px 26px;
   font-weight: 410;
   font-size: 18px;
   line-height: 117%;
 }
 
 .card__icon-like-button {
+  display: grid;
+  grid-template-rows: 1;
+  grid-template-columns: 2;
+  gap: 7px;
   align-self: end;
-  text-align: right;
+  justify-self: right;
+  
 }
 
 .card__like-button {
+  box-sizing: border-box;
   width: 130px;
   height: 38px;
   background: none;
   font-family: var(--accent-family), sans-serif;
   outline: 2px solid var(--accent-color), #000;
   padding: 9px 17px;
-  margin: 20px 26px 25px 0;
+  margin: 24px 26px 23px 0;
   position: relative;
+  grid-column: 2;
+  align-self: center;
+  justify-self: center;
+  
 }
 
 .card__icon-button {
+  box-sizing: border-box;
   outline: none;
   border: none;
   align-self: end;
   justify-content: right;
   background: none;
   padding: 0;
-  margin-top: 30px;
   cursor: pointer;
-  position: absolute;
-  bottom: 23px;
-  right: 163px;
-}
+  grid-column: 1;
+  align-self: center;
+  justify-self: center;
+  margin-top: 4px;
+  height: 38px;
+  transition: box-shadow 0.3s ease;
+  
+} /*использовала отдельный класс .button-effects, куда и добавила transition*/
 
 .save_floppy_button {
   width: 100%;
@@ -232,7 +237,7 @@ main {
   box-sizing: border-box;
   display: grid;
   min-width: 353px;
-  min-height: 191px;
+  max-width: 361px;
   gap: 20px;
   grid-template-columns: auto 1fr;
   grid-template-rows: auto auto;
@@ -276,7 +281,7 @@ main {
 }
 
 .save_to_floppy[open]::backdrop {
-  backdrop-filter: blur(20px);
+  background-color: rgba(0, 0, 0, 0.75);
 }
 
 .body:has(.save_to_floppy[open]) {
@@ -304,7 +309,7 @@ main {
   text-transform: uppercase;
 }
 
-.button-effects {
+.button-effects {   
   outline: none;
   transition: box-shadow 0.3s ease;
   position: relative;
@@ -315,6 +320,11 @@ main {
 }
 
 .button-effects:focus {
+  outline: none;
+ 
+}
+
+.button-effects:focus-visible {
   box-shadow: 2px 2px 0 var(--accent-color);
 }
 
@@ -398,7 +408,7 @@ main {
 
 .like-icon.is-liked .sparks {
   animation: appearance-sparks 0.3s 0.3s ease-in;
-  animation-fill-mode: forwards;
+  
 }
 .sparks path {
   fill: var(--decoration-color);
@@ -406,20 +416,21 @@ main {
 
 .card__icon-button:focus {
   outline: 2px solid var(--accent-color);
-  outline-offset: 1px;
+  outline-offset: -1px;
 }
 
 @media (width <= 376px) {
   .save_button {
+    flex-direction: column; 
     min-width: 306px;
-    max-height: 84px;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 15px 8px 13px;
-    position: relative;
-    margin: 0 auto;
+    max-height: 84px;  
+    padding: 15px 8px 15px;
+    margin: 5px auto 0;
     gap: 6px;
+  }
+
+  main {
+    gap: 50px;
   }
 
   .button_text {
@@ -429,13 +440,11 @@ main {
   button .icon_floppy_disk {
     width: 28px;
     height: 28px;
-    object-fit: cover;
+    
   }
 
   .save_to_floppy {
-    display: grid;
-    max-width: 341px;
-    max-height: 191px;
+    max-width: 341px;    
   }
 
   .gradient-section {
@@ -443,19 +452,26 @@ main {
   }
 
   .block {
-    padding: 120px 16px;
-    margin-bottom: 100px;
+    padding: 120px 16px; 
+    margin-bottom: 100px;  
   }
+
   .paragraph {
-    padding: 27px 26px 0;
+    padding: 27px 30px 0px 26px;
+  }
+
+  .card .paragraph:last-of-type {
+    padding: 25px 30px 0px 26px;
   }
 
   .card__like-button {
-    margin: 24px 26px 23px 0;
+    margin: 24px 28px 25px 0;
+  } 
+    
+  .card__icon-like-button {
+    gap: 8px;
+  
   }
-  .card__icon-button {
-    position: absolute;
-    bottom: 20px;
-    right: 163px;
-  }
+
+  
 }
