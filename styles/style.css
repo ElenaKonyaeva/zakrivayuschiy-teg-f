@@ -27,6 +27,7 @@
   background: #fff;
   padding: 100px 0;
   background-image: var(--main-gradient);
+  background-attachment:fixed;
 }
 
 .header {
@@ -437,16 +438,11 @@ main {
   button .icon_floppy_disk {
     width: 28px;
     height: 28px;
-    
+
   }
 
   .save_to_floppy {
     max-width: 341px;
-
-  }
-
-  .gradient-section {
-    min-height: 667px;
 
   }
 
